@@ -43,7 +43,7 @@ const getMeal = (date) => {
     success: (data) => {
       $('#loading').remove();
       $(`#app #list #glass #menu #item`).remove();
-      for(const [key, value] of Object.entries(data)) {
+      for(const [key, value] of Object.entries(data.meal)) {
         if(['breakfast', 'lunch', 'dinner'].includes(key)) {
           const menus = value.split('/');
           for(const menu of menus) {
