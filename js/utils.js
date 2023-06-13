@@ -41,63 +41,62 @@ const getMeal = (date) => {
     url: `/api/${date}`,
     type: 'GET',
     success: (data) => {
-      if (data.status === 'success') {
-        $('#loading').remove();
-        $(`#app #list #glass #menu #item`).remove();
-        for(const [key, value] of Object.entries(data.meal)) {
-          if(['breakfast', 'lunch', 'dinner'].includes(key)) {
-            const menus = value.split('/');
-            for(const menu of menus) {
-              $(`#app #list #glass.${key} #menu`).append(`<tr id="item"><td>- </td><td>${menu}</td></tr>`);
-            }
+      $('#loading').remove();
+      $(`#app #list #glass #menu #item`).remove();
+      for(const [key, value] of Object.entries(data)) {
+        if(['breakfast', 'lunch', 'dinner'].includes(key)) {
+          const menus = value.split('/');
+          for(const menu of menus) {
+            $(`#app #list #glass.${key} #menu`).append(`<tr id="item"><td>- </td><td>${menu}</td></tr>`);
           }
         }
-
-        if(isFirst) {
-          isFirst = false;
-          
-          $('#app #list').scrollLeft($('#app #list #glass.breakfast').width() * now().code);
-          $('#app #list').scrollTop($(`#app #list #glass.${now().text}`).offset().top - 78.5);
-
-          let controller = new ScrollMagic.Controller({
-            container: '#list',
-            vertical: false,
-            globalSceneOptions: {
-              duration: "100%"
-            }
-          });
-
-          let background1 = TweenMax.fromTo("#background.breakfast", 1, {
-            opacity: 1
-          }, {
-            opacity: 0
-          });
-          
-          let background2 = TweenMax.fromTo("#background.lunch", 1, {
-            opacity: 1
-          }, {
-            opacity: 0
-          });
-
-          let scene1 = new ScrollMagic.Scene({
-            triggerElement: "#glass.breakfast",
-            triggerHook: 0
-          })
-          .setTween(background1)
-          .addTo(controller);
-
-          let scene2 = new ScrollMagic.Scene({
-            triggerElement: "#glass.lunch",
-            triggerHook: 0
-          })
-          .setTween(background2)
-          .addTo(controller);
-        }
-      } else {
-        $('#loading').remove();
-        $(`#app #list #glass #menu #item`).remove();
-        $(`#app #list #glass #menu`).append(`<tr id="item"><td>- </td><td>데이터가 없습니다</td></tr>`);
       }
+
+      if(isFirst) {
+        isFirst = false;
+        
+        $('#app #list').scrollLeft($('#app #list #glass.breakfast').width() * now().code);
+        $('#app #list').scrollTop($(`#app #list #glass.${now().text}`).offset().top - 78.5);
+
+        let controller = new ScrollMagic.Controller({
+          container: '#list',
+          vertical: false,
+          globalSceneOptions: {
+            duration: "100%"
+          }
+        });
+
+        let background1 = TweenMax.fromTo("#background.breakfast", 1, {
+          opacity: 1
+        }, {
+          opacity: 0
+        });
+        
+        let background2 = TweenMax.fromTo("#background.lunch", 1, {
+          opacity: 1
+        }, {
+          opacity: 0
+        });
+
+        let scene1 = new ScrollMagic.Scene({
+          triggerElement: "#glass.breakfast",
+          triggerHook: 0
+        })
+        .setTween(background1)
+        .addTo(controller);
+
+        let scene2 = new ScrollMagic.Scene({
+          triggerElement: "#glass.lunch",
+          triggerHook: 0
+        })
+        .setTween(background2)
+        .addTo(controller);
+      }
+    },
+    error: () => {
+      $('#loading').remove();
+      $(`#app #list #glass #menu #item`).remove();
+      $(`#app #list #glass #menu`).append(`<tr id="item"><td>- </td><td>데이터가 없습니다</td></tr>`);
     }
   });
 }
