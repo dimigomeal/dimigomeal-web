@@ -126,3 +126,19 @@ const today = () => {
   nowDate = new Date();
   update();
 }; $("#control #date").click(today);
+
+$(document).keydown(function(e){
+  e.preventDefault();
+  if(e.which == 37) {
+    pre();
+  }
+  if(e.which == 39) {
+    next();
+  }
+  if(e.which == 38) {
+    $('#app #scroll').scrollLeft($('#app #scroll').scrollLeft() - $('#app #scroll').width());
+  }
+  if(e.which == 40) {
+    $('#app #scroll').scrollLeft($('#app #scroll').scrollLeft() + $('#app #scroll').width());
+  }
+});
