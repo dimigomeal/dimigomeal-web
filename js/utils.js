@@ -10,6 +10,10 @@ window.mobileAndTabletCheck = function() {
   return check;
 };
 
+const setDateDisplay = () => {
+  $('#control #date').text(`${nowDate.getMonth() + 1}월 ${nowDate.getDate()}일 ${['일', '월', '화', '수', '목', '금', '토'][nowDate.getDay()]}요일`);
+};
+
 const now = () => {
   const nowTime = new Date();
   const nowSec = getSec(nowTime.getHours(), nowTime.getMinutes(), nowTime.getSeconds());
@@ -32,94 +36,75 @@ const now = () => {
   }
 };
 
-let controller, isFirst = true;
-
+let isFirst = true;
 const getMeal = (date) => {
-  $('#app #date').text(`${nowDate.getMonth() + 1}월 ${nowDate.getDate()}일 ${['일', '월', '화', '수', '목', '금', '토'][nowDate.getDay()]}요일`);
   $(`#app`).append(`<div id="loading" class="lds-dual-ring"></div>`);
   $.ajax({
-    url: `/api/${date}`,
+    url: `https://디미고급식.com/api/${date}`,
     type: 'GET',
     success: (data) => {
       $('#loading').remove();
-      $(`#app #list #glass #menu #item`).remove();
+      $(`#list #item #menu #dish`).remove();
       for(const [key, value] of Object.entries(data.meal)) {
         if(['breakfast', 'lunch', 'dinner'].includes(key)) {
           const menus = value.split('/');
           for(const menu of menus) {
-            $(`#app #list #glass.${key} #menu`).append(`<tr id="item"><td>- </td><td>${menu}</td></tr>`);
+            $(`#list #item.${key} #menu`).append(`<div id="dish"><p id="indicator">-</p><p id="text">${menu}</p></div>`);
           }
         }
       }
 
       if(isFirst) {
         isFirst = false;
-        
-        $('#app #list').scrollLeft($('#app #list #glass.breakfast').width() * now().code);
-        $('#app #list').scrollTop($(`#app #list #glass.${now().text}`).offset().top - 78.5);
-
-        let controller = new ScrollMagic.Controller({
-          container: '#list',
-          vertical: false,
-          globalSceneOptions: {
-            duration: "100%"
-          }
-        });
-
-        let background1 = TweenMax.fromTo("#background.breakfast", 1, {
-          opacity: 1
-        }, {
-          opacity: 0
-        });
-        
-        let background2 = TweenMax.fromTo("#background.lunch", 1, {
-          opacity: 1
-        }, {
-          opacity: 0
-        });
-
-        let scene1 = new ScrollMagic.Scene({
-          triggerElement: "#glass.breakfast",
-          triggerHook: 0
-        })
-        .setTween(background1)
-        .addTo(controller);
-
-        let scene2 = new ScrollMagic.Scene({
-          triggerElement: "#glass.lunch",
-          triggerHook: 0
-        })
-        .setTween(background2)
-        .addTo(controller);
+        $('#scroll').scrollLeft($('#list #item.breakfast').width() * now().code);
       }
     },
     error: () => {
       $('#loading').remove();
-      $(`#app #list #glass #menu #item`).remove();
-      $(`#app #list #glass #menu`).append(`<tr id="item"><td>- </td><td>데이터가 없습니다</td></tr>`);
+      $(`#list #item #menu #dish`).remove();
+      $(`#list #item #menu`).append(`<div id="dish">데이터가 없습니다</div>`);
     }
   });
 }
 
-$(document).ready(() => {
-  for(const key of ['breakfast', 'lunch', 'dinner']) {
-    $('#app #list').append(`
-    <div id="glass" class=${key}>
-      <div id="inner" class="glass">
-        <table id="menu">
-          <tr>
-            <td id="title" colspan="2">${{breakfast: "아침", lunch: "점심", dinner: "저녁"}[key]}</td>
-          </tr>
-        </table>
-      </div>
-    </div>`);
-  }
-  update();
+const init = () => {
+  setDateDisplay();
+  $('#scroll').scrollLeft($('#list #item.breakfast').width() * now().code);
+  let controller = new ScrollMagic.Controller({
+    container: '#scroll',
+    vertical: false,
+    globalSceneOptions: {
+      duration: "100%"
+    }
+  });
 
-  if(!window.mobileAndTabletCheck()) {
-    $('#list').addClass("v");
-    $('body').append(`<div id="background" class="cover" style="background-image: url('/img/${now().text}.svg');"></div>`);
-  }
+  let background1 = TweenMax.fromTo("#background.breakfast", 1, {
+    opacity: 1
+  }, {
+    opacity: 0
+  });
+  let background2 = TweenMax.fromTo("#background.lunch", 1, {
+    opacity: 1
+  }, {
+    opacity: 0
+  });
+
+  let scene1 = new ScrollMagic.Scene({
+    triggerElement: "#item.breakfast",
+    triggerHook: 0
+  })
+  .setTween(background1)
+  .addTo(controller);
+  let scene2 = new ScrollMagic.Scene({
+    triggerElement: "#item.lunch",
+    triggerHook: 0
+  })
+  .setTween(background2)
+  .addTo(controller);
+}; init();
+
+$(document).ready(() => {
+  update();
 });
 
 const dateString = (date) => {
@@ -129,6 +114,7 @@ const dateString = (date) => {
 }
 
 const update = () => {
+  setDateDisplay();
   getMeal(dateString(nowDate));
 };
 
@@ -146,13 +132,3 @@ const today = () => {
   nowDate = new Date();
   update();
 }; $("#control #date").click(today);
-
-$(document).keydown(function(e){
-  e.preventDefault();
-  if(e.which == 37) {
-    $('#app #list').scrollLeft($('#app #list').scrollLeft() - $('#app #list #glass.breakfast').width());
-  }
-  if(e.which == 39) {
-    $('#app #list').scrollLeft($('#app #list').scrollLeft() + $('#app #list #glass.breakfast').width());
-  }
-}); 

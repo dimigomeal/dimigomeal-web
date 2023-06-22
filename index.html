@@ -2,19 +2,20 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--<meta name="viewport" content="viewport-fit=cover, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">    
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="./favicon.ico">
     <meta name="description" content="오늘의 디미고 급식을 확인하세요.">
     <meta name="keywords" content="디미고,급식,디미급식,디미고 급식">
 
     <meta name="author" content="노비스민">
-    <link rel="icon" href="/logo/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" href="/logo/android-chrome-512x512.png" sizes="512x512">
-    <link rel="apple-touch-icon" href="/logo/apple-icon.png" sizes="180x180">
+    <link rel="icon" href="./logo/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" href="./logo/android-chrome-512x512.png" sizes="512x512">
+    <link rel="apple-touch-icon" href="./logo/apple-icon.png" sizes="180x180">
 
     <meta http-equiv="Title" content="디미고 급식">
     <meta http-equiv="Subject" content="오늘의 디미고 급식을 확인하세요.">
@@ -22,21 +23,22 @@
 
     <meta name="twitter:title" content="디미고 급식">
     <meta name="twitter:description" content="오늘의 디미고 급식을 확인하세요.">
-    <meta name="twitter:image" content="/logo/android-chrome-512x512.png">
+    <meta name="twitter:image" content="./logo/android-chrome-512x512.png">
     <meta name="twitter:card" content="summary_large_image">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="디미고 급식">
     <meta property="og:description" content="오늘의 디미고 급식을 확인하세요.">
-    <meta property="og:image" content="/logo/android-chrome-512x512.png">
+    <meta property="og:image" content="./logo/android-chrome-512x512.png">
     <meta property="og:url" content="https://디미고급식.com">
 
     <meta name="theme-color" content="#f57b51">
     <link rel="canonical" href="https://디미고급식.com">
+    <link rel="manifest" href="./logo/manifest.json" />
     <title>디미고 급식</title>
 
     <script src="https://cdn.2w.vc/Jquery/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 
     <script src="https://cdn.2w.vc/API/ScrollMagic/ScrollMagic.min.js"></script>
     <script src="https://cdn.2w.vc/API/ScrollMagic/debug.addIndicators.min.js"></script>
@@ -60,18 +62,35 @@
     <div id="background" class="lunch"></div>
     <div id="background" class="dinner"></div>
     <div id="app">
-      <div id="control">
-        <div id="date" class="glass"></div>
-        <div id="share" class="glass" onclick='var tempElem=document.createElement("textarea");tempElem.value="https://디미고급식.com",document.body.appendChild(tempElem),tempElem.select(),document.execCommand("copy"),document.body.removeChild(tempElem),navigator.share&&navigator.share({title:"디미고 급식",url:"https://디미고급식.com"});'></div>
-      </div>
-      <div id="list">
+      <div id="scroll">
+        <div id="list">
+          <div id="item" class="glass breakfast">
+            <div id="inner">
+              <div id="title"><p>아침</p></div>
+              <div id="menu"></div>
+            </div>
+          </div>
+          <div id="item" class="glass lunch">
+            <div id="inner">
+              <div id="title"><p>점심</p></div>
+              <div id="menu"></div>
+            </div>
+          </div>
+          <div id="item" class="glass dinner">
+            <div id="inner">
+              <div id="title"><p>저녁</p></div>
+              <div id="menu"></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="control">
         <div id="pre" class="glass"></div>
+        <div id="date" class="glass"></div>
         <div id="next" class="glass"></div>
       </div>
     </div>
 
-    <script src="/js/utils.js#220823"></script>
+    <script src="./js/utils.js"></script>
   </body>
 </html>
