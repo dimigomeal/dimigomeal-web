@@ -34,12 +34,12 @@ let isFirst = true;
 const getMeal = (date) => {
   $(`#app`).append(`<div id="loading" class="lds-dual-ring"></div>`);
   $.ajax({
-    url: `https://디미고급식.com/api/${date}`,
+    url: `https://api.디미고급식.com/${date}`,
     type: 'GET',
     success: (data) => {
       $('#loading').remove();
       $(`#list #item #menu #dish`).remove();
-      for(const [key, value] of Object.entries(data.meal)) {
+      for(const [key, value] of Object.entries(data)) {
         if(['breakfast', 'lunch', 'dinner'].includes(key)) {
           const menus = value.split('/');
           for(const menu of menus) {
@@ -128,7 +128,9 @@ const today = () => {
 }; $("#control #date").click(today);
 
 $(document).keydown(function(e){
-  e.preventDefault();
+  if(e.which >= 37 && e.which <= 40) {
+    e.preventDefault();
+  }
   if(e.which == 37) {
     pre();
   }
