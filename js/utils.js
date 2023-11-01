@@ -41,7 +41,7 @@ const getMeal = (date) => {
       $(`#list #item #menu #dish`).remove();
       for(const [key, value] of Object.entries(data)) {
         if(['breakfast', 'lunch', 'dinner'].includes(key)) {
-          const menus = value.split('/');
+          const menus = value.split(/\/(?![^()]*\))/)
           for(const menu of menus) {
             $(`#list #item.${key} #menu`).append(`<div id="dish"><p id="indicator">-</p><p id="text">${menu}</p></div>`);
           }
