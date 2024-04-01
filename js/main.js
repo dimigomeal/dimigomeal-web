@@ -15,8 +15,11 @@ const now = () => {
 const getMeal = (date) => {
   $(`#app`).append(`<div id="loading" class="lds-dual-ring"></div>`);
   $.ajax({
-    url: `https://api.디미고급식.com/${date}`,
+    url: `https://api.디미고급식.com`,
     type: "GET",
+    data: {
+      date: date,
+    },
     success: (data) => {
       $(`#list #item #menu #dish`).remove();
       for (const [key, value] of Object.entries(data)) {
