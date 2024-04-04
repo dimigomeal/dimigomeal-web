@@ -27,13 +27,5 @@ deploy-job:
       docker run -d
       --name $CI_PROJECT_PATH_SLUG
       --restart always
-      --label traefik.enable=true
-      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.entrypoints=https
-      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.rule='Host(`xn--299a1v27nvthhjj.com`)'
-      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.tls=true
-      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.tls.certresolver=cloudflare
-      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.service=$CI_PROJECT_PATH_SLUG
-      --label traefik.http.routers.$CI_PROJECT_PATH_SLUG.middlewares=all-cors-headers@file,error-handler@file
-      --label traefik.http.services.$CI_PROJECT_PATH_SLUG.loadbalancer.server.port=80
       --network proxy
       $CI_REGISTRY_IMAGE:latest
