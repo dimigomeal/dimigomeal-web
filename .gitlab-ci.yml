@@ -7,7 +7,7 @@ deploy:
     entrypoint: ['']
   stage: deploy
   before_script:
-    - rm -rf ./.*
+    - rm ..?* .[!.]*
     - mc alias set minio $MINIO_HOST $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
   script:
     - mc mirror --overwrite --remove ./ minio/test
