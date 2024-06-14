@@ -1,9 +1,9 @@
-@import url("//fonts.2w.vc/suit/static/font.css");
-@import url("//fonts.2w.vc/suite/static/font.css");
+@import url('//cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/variable/woff2/SUIT-Variable.css');
+
 * {
   margin: 0;
   padding: 0;
-  font-family: "SUIT", "sans-serif";
+  font-family: "SUIT Variable", "sans-serif";
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none !important;
   -webkit-touch-callout: none;
@@ -159,8 +159,9 @@ div {
   background-size: 32px;
 }
 #app #control #date {
-  font-family: "SUITE", "sans-serif";
+  font-family: "SUIT Variable", "sans-serif";
   font-size: 22px;
+  letter-spacing: -0.44px;
   font-weight: 700;
   align-items: center;
   justify-content: center;
@@ -197,7 +198,7 @@ div {
 #app #scroll #list {
   height: 100%;
   width: calc(300vw - 32px);
-  max-width: clac(2368px);
+  max-width: calc(2368px);
   flex-direction: row;
   padding: 0 16px;
   gap: 32px;
@@ -235,8 +236,9 @@ div {
   gap: 16px;
 }
 #app #scroll #list #item #inner #title {
-  font-family: "SUITE", "sans-serif";
+  font-family: "SUIT Variable", "sans-serif";
   font-size: 32px;
+  letter-spacing: -0.64px;
   font-weight: 700;
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
   flex-direction: row;
@@ -258,15 +260,15 @@ div {
 #app #scroll #list #item #inner #menu #dish {
   flex-direction: row;
   gap: 8px;
-  line-height: 1.4;
-  text-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  line-height: 1.6;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 #app .glass {
   background: rgba(255, 255, 255, 0.2);
-  border: rgba(255, 255, 255, 0.1) 3px solid;
+  border: rgba(255, 255, 255, 0.1) 2px solid;
   border-radius: 15px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(48px);
+  -webkit-backdrop-filter: blur(48px);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 

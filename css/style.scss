@@ -1,12 +1,11 @@
-@import url('//fonts.2w.vc/suit/static/font.css');
-@import url('//fonts.2w.vc/suite/static/font.css');
+@import url('//cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/variable/woff2/SUIT-Variable.css')
 
 $screen: 800px;
 
 * {
   margin: 0;
   padding: 0;
-  font-family: 'SUIT', 'sans-serif';
+  font-family: 'SUIT Variable', 'sans-serif';
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none !important;
@@ -174,8 +173,9 @@ div {
     }
 
     #date {
-      font-family: 'SUITE', 'sans-serif';
+      font-family: 'SUIT Variable', 'sans-serif';
       font-size: 22px;
+      letter-spacing: -0.44px;
       font-weight: 700;
 
       align-items: center;
@@ -217,7 +217,7 @@ div {
     #list {
       height: 100%;
       width: calc(300vw - 32px);
-      max-width: clac(calc($screen * 3) - 32px);
+      max-width: calc(calc($screen * 3) - 32px);
       flex-direction: row;
 
       padding: 0 16px;
@@ -263,8 +263,9 @@ div {
           gap: 16px;
 
           #title {
-            font-family: 'SUITE', 'sans-serif';
+            font-family: 'SUIT Variable', 'sans-serif';
             font-size: 32px;
+            letter-spacing: -0.64px;
             font-weight: 700;
             text-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 
@@ -290,8 +291,8 @@ div {
               flex-direction: row;
               gap: 8px;
 
-              line-height: 1.4;
-              text-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+              line-height: 1.6;
+              text-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
             }
           }
         }
@@ -301,10 +302,10 @@ div {
 
   .glass {
     background: rgba(255, 255, 255, 0.2);
-    border: rgba(255, 255, 255, 0.1) 3px solid;
+    border: rgba(255, 255, 255, 0.1) 2px solid;
     border-radius: 15px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(48px);
+    -webkit-backdrop-filter: blur(48px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   }
 }
