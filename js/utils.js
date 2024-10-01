@@ -119,7 +119,7 @@ const init = () => {
 
   $("#control #pre").click(() => control("yesterday"));
   $("#control #next").click(() => control("tomorrow"));
-  $("#control #date").click(() => control("today"));
+  $("#control #date").click(() => control("now"));
 
   $(document).keydown(function (e) {
     if (!(e.which >= 37 && e.which <= 40)) return;
