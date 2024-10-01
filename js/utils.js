@@ -1,17 +1,5 @@
 let date;
 
-const now = () => {
-  const time = date.format("HH:mm:ss");
-
-  if (time < "08:00:00") {
-    return 0;
-  } else if (time < "14:00:00") {
-    return 1;
-  } else {
-    return 2;
-  }
-};
-
 const getMeal = (date) => {
   $(`#app`).append(`<div id="loading" class="lds-dual-ring"></div>`);
   $.ajax({
@@ -58,6 +46,21 @@ const control = (type) => {
     case "tomorrow":
       date.add(1, "day");
       break;
+    case "now":
+      date = moment();
+      const time = date.format("HH:mm:ss");
+
+      if (time >= "19:30:00") {
+        date.add(1, "day");
+        $("#scroll").scrollLeft($("#list #item.breakfast").width() * 0);
+      } else if (time >= "14:00:00") {
+        $("#scroll").scrollLeft($("#list #item.breakfast").width() * 2);
+      } else if (time >= "08:00:00") {
+        $("#scroll").scrollLeft($("#list #item.breakfast").width() * 1);
+      } else {
+        $("#scroll").scrollLeft($("#list #item.breakfast").width() * 0);
+      }
+      break;
     default:
       date = moment(type);
       break;
@@ -68,8 +71,6 @@ const control = (type) => {
 };
 
 const init = () => {
-  control();
-
   let controller = new ScrollMagic.Controller({
     container: "#scroll",
     vertical: false,
@@ -114,7 +115,7 @@ const init = () => {
     )
     .addTo(controller);
 
-  $("#scroll").scrollLeft($("#list #item.breakfast").width() * now());
+  control("now");
 
   $("#control #pre").click(() => control("yesterday"));
   $("#control #next").click(() => control("tomorrow"));
